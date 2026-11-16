@@ -18,7 +18,7 @@ All scoring inputs originate from two sources, defined below. Derived quantities
 
 Each index *i* carries a maximum weight *Wᵢ* defined in Ω. Evidence Vector A (semantic, from Ε) and Evidence Vector B (structural, from Ε) act independently against that ceiling. The realized index score *IQᵢ* = *Cᵢ / Wᵢ* reflects the combined reduction. Because the two vectors are derived from disjoint signal domains, their agreement or divergence is itself a quality indicator.
 
-![Figure 1. Dual Evidence Vectors Acting on Index Weight Ceiling](assets/iq-figure-1.png)
+![Figure 1. Dual Evidence Vectors Acting on Index Weight Ceiling](iq-figure-1.png)
 
 ## 2. Definitions
 
