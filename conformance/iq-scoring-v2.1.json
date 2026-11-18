@@ -1,0 +1,180 @@
+{
+  "vector_format": "tabularium-iq-conformance",
+  "vector_format_version": 1,
+  "specification_version": "2.1",
+  "normative_specification": "../IQ-Scoring-Spec.md",
+  "absolute_tolerance": 1e-9,
+  "cases": [
+    {
+      "id": "worked-example-review",
+      "description": "The worked example from Section 6.",
+      "configuration": {
+        "pass_threshold": 90.0,
+        "reject_threshold": 70.0,
+        "critical_keys": ["instrument_number"],
+        "segments": [
+          {
+            "id": "reference",
+            "indices": [
+              {
+                "id": "instrument_number",
+                "criteria": [
+                  {"id": "value", "weight": 10.0, "ambiguity_critical": true}
+                ]
+              },
+              {
+                "id": "recording_date",
+                "criteria": [
+                  {"id": "value", "weight": 5.0, "ambiguity_critical": false}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "extraction": {
+        "instrument_number": {
+          "value": {"present": true, "confidence": 0.99, "ambiguous": false}
+        },
+        "recording_date": {
+          "value": {"present": true, "confidence": 0.90, "ambiguous": true}
+        }
+      },
+      "expected": {
+        "hard_gate_failures": [],
+        "criteria": {
+          "instrument_number.value": {"penalty": 1.0, "score": 0.99},
+          "recording_date.value": {"penalty": 0.5, "score": 0.45}
+        },
+        "indices": {
+          "instrument_number": 9.90,
+          "recording_date": 2.25
+        },
+        "segments": {
+          "reference": {"maximum": 15.0, "realized": 12.15, "iq": 81.0}
+        },
+        "document_iq": 81.0,
+        "decision": "Review"
+      }
+    },
+    {
+      "id": "full-score-pass",
+      "description": "All configured criteria are present, unambiguous, and fully confident.",
+      "configuration": {
+        "pass_threshold": 90.0,
+        "reject_threshold": 70.0,
+        "critical_keys": ["instrument_number"],
+        "segments": [
+          {
+            "id": "reference",
+            "indices": [
+              {
+                "id": "instrument_number",
+                "criteria": [
+                  {"id": "value", "weight": 10.0, "ambiguity_critical": true}
+                ]
+              },
+              {
+                "id": "recording_date",
+                "criteria": [
+                  {"id": "value", "weight": 5.0, "ambiguity_critical": false}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "extraction": {
+        "instrument_number": {
+          "value": {"present": true, "confidence": 1.0, "ambiguous": false}
+        },
+        "recording_date": {
+          "value": {"present": true, "confidence": 1.0, "ambiguous": false}
+        }
+      },
+      "expected": {
+        "hard_gate_failures": [],
+        "segments": {
+          "reference": {"maximum": 15.0, "realized": 15.0, "iq": 100.0}
+        },
+        "document_iq": 100.0,
+        "decision": "Pass"
+      }
+    },
+    {
+      "id": "critical-key-hard-reject",
+      "description": "A missing configured critical key rejects the document before scoring.",
+      "configuration": {
+        "pass_threshold": 90.0,
+        "reject_threshold": 70.0,
+        "critical_keys": ["instrument_number"],
+        "segments": [
+          {
+            "id": "reference",
+            "indices": [
+              {
+                "id": "instrument_number",
+                "criteria": [
+                  {"id": "value", "weight": 10.0, "ambiguity_critical": true}
+                ]
+              },
+              {
+                "id": "recording_date",
+                "criteria": [
+                  {"id": "value", "weight": 5.0, "ambiguity_critical": false}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "extraction": {
+        "recording_date": {
+          "value": {"present": true, "confidence": 1.0, "ambiguous": false}
+        }
+      },
+      "expected": {
+        "hard_gate_failures": ["instrument_number"],
+        "decision": "Rejected"
+      }
+    },
+    {
+      "id": "critical-ambiguity-zero-penalty",
+      "description": "An ambiguous criterion marked as ambiguity-critical receives a zero penalty factor.",
+      "configuration": {
+        "pass_threshold": 90.0,
+        "reject_threshold": 70.0,
+        "critical_keys": [],
+        "segments": [
+          {
+            "id": "reference",
+            "indices": [
+              {
+                "id": "instrument_number",
+                "criteria": [
+                  {"id": "value", "weight": 10.0, "ambiguity_critical": true}
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "extraction": {
+        "instrument_number": {
+          "value": {"present": true, "confidence": 1.0, "ambiguous": true}
+        }
+      },
+      "expected": {
+        "hard_gate_failures": [],
+        "criteria": {
+          "instrument_number.value": {"penalty": 0.0, "score": 0.0}
+        },
+        "segments": {
+          "reference": {"maximum": 10.0, "realized": 0.0, "iq": 0.0}
+        },
+        "document_iq": 0.0,
+        "decision": "Reject"
+      }
+    }
+  ]
+}

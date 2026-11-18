@@ -2,9 +2,19 @@
 
 *Prepared by Tabularium AI*
 
+- **Version:** 2.1
+- **Status:** Published
+- **Release date:** 2026-11-17
+- **Canonical source:** [TabulariumAI/Indexing-Quality-IQ-Scoring](https://github.com/TabulariumAI/Indexing-Quality-IQ-Scoring)
+- **License:** [Apache License 2.0](LICENSE)
+
 ## Abstract
 
 **Index Quality (IQ)** is a deterministic, bottom-up scoring model for official records indexing. Each index field carries a configuration-defined maximum weight. Two independent evidence vectors — one derived from semantic extraction, one from structural detection — act against that ceiling to produce a realized index score. The two vectors operate on disjoint signal domains: agreement between them increases confidence in the score; divergence is a diagnostic signal that flags extraction risk without requiring ground truth. Criterion scores aggregate to index scores, index scores to segment completeness, and segment scores to a document-level IQ score, auditable at every level. This document presents the mathematical framework; extraction pipelines and scoring parameters are proprietary.
+
+## Conformance and Normative Scope
+
+Sections 1–5 and 7 define the normative scoring and audit behavior. Section 6 and all notes and examples are informative. A conforming implementation applies the definitions and decision order without changing their precedence, excludes non-scorable segments as specified, and produces the audit record required by Section 7. Machine-readable examples are published in [conformance](conformance/README.md).
 
 ## 1. Inputs
 

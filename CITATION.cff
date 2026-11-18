@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this specification, please cite it using this metadata."
+title: "Index Quality (IQ) Scoring Specification"
+authors:
+  - name: "Tabularium AI"
+version: "2.1"
+date-released: "2026-11-17"
+license: Apache-2.0
+repository-code: "https://github.com/TabulariumAI/Indexing-Quality-IQ-Scoring"
+url: "https://github.com/TabulariumAI/Indexing-Quality-IQ-Scoring/blob/main/IQ-Scoring-Spec.md"
+abstract: >-
+  A deterministic, bottom-up scoring model for measuring the quality of
+  extracted index fields in official records.
